@@ -1112,6 +1112,16 @@
     entering = true;
     try {
       await loadProfile(session.user);
+         
+      // Инициализация звонков
+    if (window.LumoCalls) {
+      LumoCalls.init({
+        userId: state.me.id,
+        username: state.me.username,
+        avatar: state.me.avatar_url,
+        supabase: sb          // передаём клиент Supabase, если calls.js его использует
+      });
+    }
       await loadChats();
       subscribeRealtime();
       show($("auth-screen"), false);
@@ -1127,15 +1137,7 @@
       entering = false;
     }
   }
-    // Инициализация звонков
-    if (window.LumoCalls) {
-      LumoCalls.init({
-        userId: state.me.id,
-        username: state.me.username,
-        avatar: state.me.avatar_url,
-        supabase: sb          // передаём клиент Supabase, если calls.js его использует
-      });
-    }
+    
   function leaveApp() {
     if (state.channel) {
       sb.removeChannel(state.channel);
