@@ -1113,13 +1113,13 @@
     try {
       await loadProfile(session.user);
          
-      // Инициализация звонков
+          // Инициализация звонков
     if (window.LumoCalls) {
       LumoCalls.init({
+        supabase: sb,
         userId: state.me.id,
-        username: state.me.username,
-        avatar: state.me.avatar_url,
-        supabase: sb          // передаём клиент Supabase, если calls.js его использует
+        userName: state.me.username,
+        livekitUrl: 'wss://chat-k4dq8vjv.livekit.cloud'
       });
     }
       await loadChats();
